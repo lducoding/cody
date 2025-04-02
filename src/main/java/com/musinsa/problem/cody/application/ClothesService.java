@@ -27,4 +27,11 @@ public class ClothesService {
         clothesList);
   }
 
+  public LowestPricesByBrand calculateTotalClothesPriceByBrands() {
+    List<Clothes> clothesList = clothesModel.getLowestPriceClothesByBrands();
+    // 빈 리스트 에러 처리
+    return new LowestPricesByBrand(clothesList.get(0).brandName(), clothesList.stream().map(
+        clothes -> new LowestPricesByBrand.CategoryPriceSummary(clothes.category().getDisplayName(),
+            clothes.price())).toList(), clothesList.stream().mapToInt(Clothes::price).sum());
+  }
 }

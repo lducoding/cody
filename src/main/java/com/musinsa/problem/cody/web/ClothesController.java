@@ -24,4 +24,10 @@ public class ClothesController {
   public ResponseEntity<LowestPricesByCategories> getLowestPricesByCategories() {
     return ResponseEntity.ok(clothesService.calculateTotalClothesPriceByCategories());
   }
+
+  @GetMapping("/lowest-prices/brands")
+  public ResponseEntity<Map<String, LowestPricesByBrand>> getLowestPricesBybrand() {
+    return ResponseEntity.ok(
+        Map.of("lowestPrice", clothesService.calculateTotalClothesPriceByBrands()));
+  }
 }

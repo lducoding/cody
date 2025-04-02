@@ -31,4 +31,19 @@ public class ClothesRepositoryImpl implements ClothesRepository {
                 .where(subProduct.category.eq(product.category))))
         .orderBy(product.categoryOrderNumber.asc()).fetch();
   }
+
+  @Override
+  public List<Clothes> clothesFindLowestPriceByBrand() {
+    Long lowestPriceBrandId = queryFactory.select(subProduct.brand.id).from(subProduct)
+        .groupBy(subProduct.brand.id).orderBy(subProduct.price.sum().asc()).fetchFirst();
+
+    if (lowestPriceBrandId == null) {
+      return Collections.emptyList();
+    }
+
+    return queryFactory.select(
+            Projections.constructor(Clothes.class, product.brand.name, product.category, product.price))
+        .from(product).where(product.brand.id.eq(lowestPriceBrandId))
+        .orderBy(product.categoryOrderNumber.asc()).fetch();
+  }
 }

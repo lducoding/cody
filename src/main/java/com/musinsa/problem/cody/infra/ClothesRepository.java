@@ -9,3 +9,5 @@ import java.util.Map;
 public interface ClothesRepository {
 
   List<Clothes> clothesFindLowestPriceByCategory();
+
+  List<Clothes> clothesFindLowestPriceByBrand();
