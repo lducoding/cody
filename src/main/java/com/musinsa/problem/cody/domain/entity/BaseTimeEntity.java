@@ -15,19 +15,19 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    Instant createdAt;
+  @CreationTimestamp
+  @Column(name = "created_at", updatable = false)
+  Instant createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    Instant updatedAt;
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  Instant updatedAt;
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
+  public void setCreatedAt(Instant createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  public void setUpdatedAt(Instant updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 }
