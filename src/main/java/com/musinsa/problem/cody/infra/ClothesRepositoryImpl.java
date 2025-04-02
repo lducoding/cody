@@ -46,4 +46,11 @@ public class ClothesRepositoryImpl implements ClothesRepository {
         .from(product).where(product.brand.id.eq(lowestPriceBrandId))
         .orderBy(product.categoryOrderNumber.asc()).fetch();
   }
+
+  public List<Clothes> clothesFindAllByCategory(Category category) {
+    return queryFactory.select(
+            Projections.constructor(Clothes.class, product.brand.name, product.category, product.price))
+        .from(product).where(product.category.eq(category)).fetch();
+  }
+
 }

@@ -20,4 +20,8 @@ public class ClothesModel {
   public List<Clothes> getLowestPriceClothesByBrands() {
     return productRepository.clothesFindLowestPriceByBrand();
   }
+
+  public List<Clothes> getMinAndMaxClothesByCategory(Category category) {
+    return productRepository.clothesFindAllByCategory(category);
+  }
 }

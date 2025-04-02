@@ -11,3 +11,6 @@ public interface ClothesRepository {
   List<Clothes> clothesFindLowestPriceByCategory();
 
   List<Clothes> clothesFindLowestPriceByBrand();
+
+  List<Clothes> clothesFindAllByCategory(Category category);
+}

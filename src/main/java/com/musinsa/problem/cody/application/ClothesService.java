@@ -34,4 +34,18 @@ public class ClothesService {
         clothes -> new LowestPricesByBrand.CategoryPriceSummary(clothes.category().getDisplayName(),
             clothes.price())).toList(), clothesList.stream().mapToInt(Clothes::price).sum());
   }
+
+  public CategoryMinMaxPrice getLowestAndHighestPricesByCategoryName(Category category) {
+    List<Clothes> clothesList = clothesModel.getMinAndMaxClothesByCategory(category);
+
+    Clothes minPriceClothes = clothesList.stream().min(Comparator.comparing(Clothes::price))
+        .orElse(null);
+
+    Clothes maxPriceClothes = clothesList.stream().max(Comparator.comparing(Clothes::price))
+        .orElse(null);
+
+    return new CategoryMinMaxPrice(category.getDisplayName(),
+        new BrandPriceSummary(minPriceClothes.brandName(), minPriceClothes.price()),
+        new BrandPriceSummary(maxPriceClothes.brandName(), maxPriceClothes.price()));
+  }
 }

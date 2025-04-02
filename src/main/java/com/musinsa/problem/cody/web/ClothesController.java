@@ -30,4 +30,10 @@ public class ClothesController {
     return ResponseEntity.ok(
         Map.of("lowestPrice", clothesService.calculateTotalClothesPriceByBrands()));
   }
+
+  @GetMapping("/lowest-prices/categories/{categoryName}")
+  public ResponseEntity<CategoryMinMaxPrice> getLowestAndHighestPricesByCategoryName(
+      @PathVariable(name = "categoryName") Category categoryName) {
+    return ResponseEntity.ok(clothesService.getLowestAndHighestPricesByCategoryName(categoryName));
+  }
 }
