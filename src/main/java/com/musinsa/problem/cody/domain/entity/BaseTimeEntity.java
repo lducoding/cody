@@ -23,6 +23,9 @@ public class BaseTimeEntity {
   @Column(name = "updated_at")
   Instant updatedAt;
 
+  @Column(name = "deleted_at")
+  Instant deletedAt;
+
   public void setCreatedAt(Instant createdAt) {
     this.createdAt = createdAt;
   }
@@ -30,4 +33,6 @@ public class BaseTimeEntity {
   public void setUpdatedAt(Instant updatedAt) {
     this.updatedAt = updatedAt;
   }
+
+  public void setDeletedAt(Instant deletedAt) {this.deletedAt = deletedAt;}
 }
