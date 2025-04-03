@@ -35,6 +35,13 @@ public class Product extends BaseTimeEntity {
   @JoinColumn(name = "brand_id", nullable = false)
   private Brand brand;
 
+  public void updateAll(Category category, int price, int categoryOrderNumber, Brand brand) {
+    this.category = category;
+    this.price = price;
+    this.categoryOrderNumber = categoryOrderNumber;
+    this.brand = brand;
+  }
+
   public Product(Long id, Category category, int price, int categoryOrderNumber, Brand brand) {
     this.id = id;
     this.category = category;

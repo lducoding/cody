@@ -38,4 +38,27 @@ public class ProductService {
 
     return ProductResponse.of(productRepository.save(product));
   }
+
+  public ProductResponse updateProduct(Long id, ProductDataRequest productDataRequest) {
+    Product product =
+        productRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
+
+    Brand brand =
+        brandRepository
+            .findById(productDataRequest.brandId())
+            .orElseThrow(
+                () ->
+                    new EntityNotFoundException(
+                        "Brand not found with id: " + productDataRequest.brandId()));
+
+    product.updateAll(
+        productDataRequest.category(),
+        productDataRequest.price(),
+        productDataRequest.categoryOrderNumber(),
+        brand);
+
+    return ProductResponse.of(product);
+  }
 }
