@@ -20,4 +20,15 @@ public class BrandService {
   public BrandResponse createBrand(BrandDataRequest brandDataRequest) {
     return BrandResponse.of(brandRepository.save(new Brand(brandDataRequest.name())));
   }
+
+  public BrandResponse updateBrand(Long id, BrandDataRequest brandDataRequest) {
+    Brand brand =
+        brandRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
+
+    brand.updateAll(brandDataRequest.name());
+
+    return BrandResponse.of(brand);
+  }
 }

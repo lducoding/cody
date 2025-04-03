@@ -23,6 +23,9 @@ public class Brand extends BaseTimeEntity {
   @Comment("브랜드 이름")
   private String name;
 
+  public void updateAll(String name) {
+    this.name = name;
+  }
   public Brand(String name) {
     this.name = name;
   }

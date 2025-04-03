@@ -27,4 +27,10 @@ public class BrandController {
   public ResponseEntity<BrandResponse> createBrand(@RequestBody BrandDataRequest brandDataRequest) {
     return ResponseEntity.ok(brandService.createBrand(brandDataRequest));
   }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<BrandResponse> updateBrand(
+      @PathVariable Long id, @RequestBody BrandDataRequest request) {
+    return ResponseEntity.ok(brandService.updateBrand(id, request));
+  }
 }
