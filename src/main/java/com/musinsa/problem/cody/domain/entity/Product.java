@@ -2,12 +2,14 @@ package com.musinsa.problem.cody.domain.entity;
 
 import com.musinsa.problem.cody.domain.enums.Category;
 import jakarta.persistence.*;
+import java.time.Instant;
 import lombok.Getter;
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 @Entity
 @Table(name = "product")
+@NoArgsConstructor
 @Getter
 public class Product extends BaseTimeEntity {
 
@@ -41,7 +43,10 @@ public class Product extends BaseTimeEntity {
     this.brand = brand;
   }
 
-  public Product() {
-
+  public Product(Category category, int price, int categoryOrderNumber, Brand brand) {
+    this.category = category;
+    this.price = price;
+    this.categoryOrderNumber = categoryOrderNumber;
+    this.brand = brand;
   }
 }
