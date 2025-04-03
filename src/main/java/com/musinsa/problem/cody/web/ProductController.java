@@ -32,4 +32,9 @@ public class ProductController {
       @PathVariable Long id, @RequestBody ProductDataRequest productDataRequest) {
     return ResponseEntity.ok(productService.updateProduct(id, productDataRequest));
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Instant> deleteProduct(@PathVariable Long id) {
+    return ResponseEntity.ok(productService.deleteProduct(id));
+  }
 }

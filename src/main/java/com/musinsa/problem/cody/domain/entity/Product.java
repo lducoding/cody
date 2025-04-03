@@ -35,6 +35,11 @@ public class Product extends BaseTimeEntity {
   @JoinColumn(name = "brand_id", nullable = false)
   private Brand brand;
 
+  public Instant delete() {
+    this.deletedAt = Instant.now();
+    return deletedAt;
+  }
+
   public void updateAll(Category category, int price, int categoryOrderNumber, Brand brand) {
     this.category = category;
     this.price = price;

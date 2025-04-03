@@ -61,4 +61,15 @@ public class ProductService {
 
     return ProductResponse.of(product);
   }
+
+  public Instant deleteProduct(Long id) {
+    Product product =
+        productRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
+
+    // 이미 삭제된 경우 로직
+
+    return product.delete();
+  }
 }
