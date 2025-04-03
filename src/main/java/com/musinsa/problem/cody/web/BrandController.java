@@ -33,4 +33,9 @@ public class BrandController {
       @PathVariable Long id, @RequestBody BrandDataRequest request) {
     return ResponseEntity.ok(brandService.updateBrand(id, request));
   }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Instant> deleteBrand(@PathVariable Long id) {
+    return ResponseEntity.ok(brandService.deleteBrand(id));
+  }
 }

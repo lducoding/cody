@@ -26,6 +26,12 @@ public class Brand extends BaseTimeEntity {
   public void updateAll(String name) {
     this.name = name;
   }
+
+  public Instant delete() {
+    this.deletedAt = Instant.now();
+    return deletedAt;
+  }
+
   public Brand(String name) {
     this.name = name;
   }

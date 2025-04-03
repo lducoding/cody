@@ -31,4 +31,15 @@ public class BrandService {
 
     return BrandResponse.of(brand);
   }
+
+  public Instant deleteBrand(Long id) {
+    Brand brand =
+        brandRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Brand not found"));
+
+    // 이미 삭제된 경우 로직
+
+    return brand.delete();
+  }
 }
