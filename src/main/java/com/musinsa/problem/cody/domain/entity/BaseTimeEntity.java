@@ -34,5 +34,7 @@ public class BaseTimeEntity {
     this.updatedAt = updatedAt;
   }
 
-  public void setDeletedAt(Instant deletedAt) {this.deletedAt = deletedAt;}
+  public void setDeletedAt(Instant deletedAt) {
+    this.deletedAt = deletedAt;
+  }
 }

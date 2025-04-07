@@ -5,7 +5,6 @@ import com.musinsa.problem.cody.web.dto.ProductDataRequest;
 import com.musinsa.problem.cody.web.dto.ProductResponse;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,8 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping("")
-  public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductDataRequest productDataRequest) {
+  public ResponseEntity<ProductResponse> createProduct(
+      @RequestBody ProductDataRequest productDataRequest) {
     return ResponseEntity.ok(productService.createProduct(productDataRequest));
   }
 
