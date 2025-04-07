@@ -1,7 +1,9 @@
 package com.musinsa.problem.cody.domain.entity;
 
-import com.musinsa.problem.cody.infra.ClothesRepositoryCustom;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepository extends JpaRepository<Product, Long>, ClothesRepositoryCustom {
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+  Optional<Product> findByIdAndDeletedAtIsNull(Long id);
 }

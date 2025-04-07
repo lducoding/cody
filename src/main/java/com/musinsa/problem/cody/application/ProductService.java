@@ -1,12 +1,15 @@
 package com.musinsa.problem.cody.application;
 
+import static com.musinsa.problem.cody.common.exception.ExceptionConstants.ERROR_BRAND_NOT_FOUND;
+import static com.musinsa.problem.cody.common.exception.ExceptionConstants.ERROR_PRODUCT_NOT_FOUND;
+
+import com.musinsa.problem.cody.common.exception.NotFoundException;
 import com.musinsa.problem.cody.domain.entity.Brand;
 import com.musinsa.problem.cody.domain.entity.BrandRepository;
 import com.musinsa.problem.cody.domain.entity.Product;
 import com.musinsa.problem.cody.domain.entity.ProductRepository;
 import com.musinsa.problem.cody.web.dto.ProductDataRequest;
 import com.musinsa.problem.cody.web.dto.ProductResponse;
-import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,11 +26,12 @@ public class ProductService {
   public ProductResponse createProduct(ProductDataRequest productDataRequest) {
     Brand brand =
         brandRepository
-            .findById(productDataRequest.brandId())
+            .findByIdAndDeletedAtIsNull(productDataRequest.brandId())
             .orElseThrow(
                 () ->
-                    new EntityNotFoundException(
-                        "Brand not found with id: " + productDataRequest.brandId()));
+                    new NotFoundException(
+                        ERROR_BRAND_NOT_FOUND,
+                        "삭제되지 않은 Brand가 존재하지 않습니다 id: " + productDataRequest.brandId()));
 
     Product product =
         new Product(
@@ -42,16 +46,20 @@ public class ProductService {
   public ProductResponse updateProduct(Long id, ProductDataRequest productDataRequest) {
     Product product =
         productRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
+            .findByIdAndDeletedAtIsNull(id)
+            .orElseThrow(
+                () ->
+                    new NotFoundException(
+                        ERROR_PRODUCT_NOT_FOUND, "삭제되지 않은 Product가 존재하지 않습니다 id: " + id));
 
     Brand brand =
         brandRepository
-            .findById(productDataRequest.brandId())
+            .findByIdAndDeletedAtIsNull(productDataRequest.brandId())
             .orElseThrow(
                 () ->
-                    new EntityNotFoundException(
-                        "Brand not found with id: " + productDataRequest.brandId()));
+                    new NotFoundException(
+                        ERROR_BRAND_NOT_FOUND,
+                        "삭제되지 않은 Brand가 존재하지 않습니다 id: " + productDataRequest.brandId()));
 
     product.updateAll(
         productDataRequest.category(),
@@ -65,10 +73,11 @@ public class ProductService {
   public Instant deleteProduct(Long id) {
     Product product =
         productRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
-
-    // 이미 삭제된 경우 로직
+            .findByIdAndDeletedAtIsNull(id)
+            .orElseThrow(
+                () ->
+                    new NotFoundException(
+                        ERROR_PRODUCT_NOT_FOUND, "삭제되지 않은 Product가 존재하지 않습니다 id: " + id));
 
     return product.delete();
   }

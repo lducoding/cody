@@ -1,10 +1,12 @@
 package com.musinsa.problem.cody.application;
 
+import static com.musinsa.problem.cody.common.exception.ExceptionConstants.ERROR_BRAND_NOT_FOUND;
+
+import com.musinsa.problem.cody.common.exception.NotFoundException;
 import com.musinsa.problem.cody.domain.entity.Brand;
 import com.musinsa.problem.cody.domain.entity.BrandRepository;
 import com.musinsa.problem.cody.web.dto.BrandDataRequest;
 import com.musinsa.problem.cody.web.dto.BrandResponse;
-import jakarta.persistence.EntityNotFoundException;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,21 +26,20 @@ public class BrandService {
   public BrandResponse updateBrand(Long id, BrandDataRequest brandDataRequest) {
     Brand brand =
         brandRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
+            .findByIdAndDeletedAtIsNull(id)
+            .orElseThrow(
+                () -> new NotFoundException(ERROR_BRAND_NOT_FOUND, "Brand가 존재하지 않습니다 id: " + id));
 
     brand.updateAll(brandDataRequest.name());
-
     return BrandResponse.of(brand);
   }
 
   public Instant deleteBrand(Long id) {
     Brand brand =
         brandRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Brand not found"));
-
-    // 이미 삭제된 경우 로직
+            .findByIdAndDeletedAtIsNull(id)
+            .orElseThrow(
+                () -> new NotFoundException(ERROR_BRAND_NOT_FOUND, "Brand가 존재하지 않습니다 id: " + id));
 
     return brand.delete();
   }
