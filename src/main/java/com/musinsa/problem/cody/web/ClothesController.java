@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/clothes/v1")
-@RequiredArgsConstructor
 public class ClothesController {
 
   private final ClothesService clothesService;
+
+  public ClothesController(ClothesService clothesService) {
+    this.clothesService = clothesService;
+  }
 
   @GetMapping("/lowest-prices/categories")
   public ResponseEntity<LowestPricesByCategories> getLowestPricesByCategories() {

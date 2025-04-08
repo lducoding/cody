@@ -17,11 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class ProductService {
 
   private final ProductRepository productRepository;
   private final BrandRepository brandRepository;
+
+  public ProductService(ProductRepository productRepository, BrandRepository brandRepository) {
+    this.productRepository = productRepository;
+    this.brandRepository = brandRepository;
+  }
 
   public ProductResponse createProduct(ProductDataRequest productDataRequest) {
     Brand brand =

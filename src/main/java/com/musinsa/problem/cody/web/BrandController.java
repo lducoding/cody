@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/brands/v1")
-@RequiredArgsConstructor
 public class BrandController {
 
   private final BrandService brandService;
+
+  public BrandController(BrandService brandService) {
+    this.brandService = brandService;
+  }
 
   @PostMapping("")
   public ResponseEntity<BrandResponse> createBrand(@RequestBody BrandDataRequest brandDataRequest) {

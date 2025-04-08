@@ -20,10 +20,13 @@ import java.util.List;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class ClothesService {
 
   private final ClothesModel clothesModel;
+
+  public ClothesService(ClothesModel clothesModel) {
+    this.clothesModel = clothesModel;
+  }
 
   public LowestPricesByCategories calculateTotalClothesPriceByCategories() {
     List<Clothes> clothesList = clothesModel.getLowestPriceClothesByCategories();

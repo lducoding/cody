@@ -14,10 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class BrandService {
 
   private final BrandRepository brandRepository;
+
+  public BrandService(BrandRepository brandRepository) {
+    this.brandRepository = brandRepository;
+  }
 
   public BrandResponse createBrand(BrandDataRequest brandDataRequest) {
     return BrandResponse.of(brandRepository.save(new Brand(brandDataRequest.name())));

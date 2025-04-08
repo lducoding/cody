@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products/v1")
-@RequiredArgsConstructor
 public class ProductController {
 
   private final ProductService productService;
+
+  public ProductController(ProductService productService) {
+    this.productService = productService;
+  }
 
   @PostMapping("")
   public ResponseEntity<ProductResponse> createProduct(
